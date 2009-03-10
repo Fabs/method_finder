@@ -1,0 +1,11 @@
+Method_Finder is a clone for the MethodFinder functionality of Smaltalk.
+
+The results on irb should ilustrate:
+
+require 'method_finder' #=> true
+match_method(2,[2],4) #=> ["*", "**", "+"]
+match_method([1],[2],[1,2]) #=> ["<<", "push"]
+match_method([1],[2,3],[1,2,3]) #=> ["push"]
+match_method([3,2,1],[],[1,2,3]) #=> ["reverse", "reverse!", "sort", "sort!"]
+
+True gem is comming soon
