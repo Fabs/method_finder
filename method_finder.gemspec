@@ -1,4 +1,6 @@
-spec = Gem::Specification.new do |s|
+require 'rake/gempackagetask'
+
+Gem::Specification.new do |s|
   s.name = %q{method_finder}
   s.version = "0.0.1"
   s.authors = ["Fabricio Nascimento"]
