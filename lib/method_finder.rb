@@ -9,10 +9,8 @@ module Kernel
   end
 
   def match_method(object,params,expected)
-    answer = []
     with_warnings_suppressed do
-      answer.collect!{|i| i.to_s if i.class == Fixnum}
-      object.methods.sort.each do | method | 
+      object.methods.select do |method|
         begin
           clone = object
           begin
@@ -21,12 +19,11 @@ module Kernel
           end
           exp = "clone.#{method}(#{params.join(',')})"
           result = eval(exp)
-          answer << method if result == expected
+          result == expected
         rescue
-        end
-      end
+        end        
+      end.sort
     end
-    return answer.sort
   end
 
 end
