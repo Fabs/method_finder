@@ -7,8 +7,8 @@ describe Kernel do
   
   it "should work well integers" do
     match_method(1,[1],2).should == ['+','<<'].sort
-    match_method(2,[2],4).should == ['**','*',"+"].sort
-    match_method(5,[4],1).should == ['%','-','/','<=>','div','modulo','remainder','^'].sort
+    match_method(2,[2],4).should == ['**','*',"+","power!","rpower"].sort
+    match_method(5,[4],1).should == ['%','-','/','<=>','div','modulo','remainder','^','gcd'].sort
     match_method(47,[1],200).should == []
   end
   
