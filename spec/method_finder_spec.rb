@@ -17,6 +17,10 @@ describe Kernel do
     match_method([1,2,3,4,5,6],[4],5).should == ['[]','at','delete_at','fetch','slice','slice!'].sort  
   end
   
-  
+  it "should work with blocks" do
+    match_method([1,2,3,4,5],[],[1,3,5]) do |i|
+      (i % 2 == 1)
+    end.should == ["find_all", "select", "should_not"].sort
+  end
   
 end

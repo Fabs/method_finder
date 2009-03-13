@@ -1,14 +1,16 @@
 module Kernel
 
-  def match_method(object,params,expected)
+  def match_method(object,params,expected, &block)
+    params << "&block" if block_given?
     with_warnings_suppressed do
       object.methods.select do |method|
-        test_method(method, object, params, expected)
+        test_method(method, object, params, expected, &block)
       end.sort
     end
   end
   
   private
+
     # Suppresses warnings within a given block.
     def with_warnings_suppressed
       saved_verbosity = $-v
@@ -26,7 +28,7 @@ module Kernel
       end
     end
   
-    def test_method(method, object, params, expected)
+    def test_method(method, object, params, expected, &block)
       begin
         clone = try_clone object
         exp = "clone.#{method}(#{params.join(',')})"
