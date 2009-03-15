@@ -1,7 +1,6 @@
 module Kernel
 
   def match_method(object,params,expected, &block)
-    params << "&block" if block_given?
     with_warnings_suppressed do
       object.methods.select do |method|
         test_method(method, object, params, expected, &block)
