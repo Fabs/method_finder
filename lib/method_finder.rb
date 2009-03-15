@@ -3,7 +3,9 @@ module Kernel
   def match_method(object,params,expected, &block)
     with_warnings_suppressed do
       object.methods.select do |method|
-        test_method(method, object, params, expected, &block)
+        p = params
+        p += ["&block"]  if block_given? && method[method.size-1,1] != '='
+          test_method(method, object, p, expected, &block)
       end.sort
     end
   end
