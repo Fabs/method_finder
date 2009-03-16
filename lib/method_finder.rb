@@ -1,11 +1,11 @@
-module Kernel
+class Object
 
-  def match_method(object,params,expected, &block)
+  def match_method(params,expected, &block)
     with_warnings_suppressed do
-      object.methods.select do |method|
+      methods.select do |method|
         p = params
         p += ["&block"]  if block_given? && method[method.size-1,1] != '='
-          test_method(method, object, p, expected, &block)
+        test_method(method, p, expected, &block)
       end.sort
     end
   end
@@ -21,17 +21,17 @@ module Kernel
       $-v = saved_verbosity
     end
   
-    def try_clone(object)
+    def try_clone
       begin
-        object.clone
+        clone
       rescue
-        object
+        self
       end
     end
   
-    def test_method(method, object, params, expected, &block)
+    def test_method(method, params, expected, &block)
       begin
-        clone = try_clone object
+        clone = try_clone
         exp = "clone.#{method}(#{params.join(',')})"
         result = eval(exp)
         result == expected    

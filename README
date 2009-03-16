@@ -3,15 +3,15 @@ Method_Finder is a clone for the MethodFinder functionality of Smaltalk.
 The results on irb should ilustrate:
 
 require 'method_finder' #=> true
-match_method(2,[2],4) #=> ["*", "**", "+"]
-match_method([1],[2],[1,2]) #=> ["<<", "push"]
-match_method([1],[2,3],[1,2,3]) #=> ["push"]
-match_method([3,2,1],[],[1,2,3]) #=> ["reverse", "reverse!", "sort", "sort!"]
+2.match_method([2],4) #=> ["*", "**", "+"]
+[1].match_method([2],[1,2]) #=> ["<<", "push"]
+[1].match_method([2,3],[1,2,3]) #=> ["push"]
+[3,2,1].match_method([],[1,2,3]) #=> ["reverse", "reverse!", "sort", "sort!"]
 
 Note that default mac ruby and the spec_helper sometimes require 'rubygem', and because of that some tests like the ones bellow broke. This is because tests are poorly made, and when rubygems adds gcd or power! to methods the tests become wrong.
 
-match_method(2,[2],4).should == ['**','*',"+","power!","rpower"].sort
-match_method(5,[4],1).should == ['%','-','/','<=>','div','modulo','remainder','^','gcd'].sort
+2.match_method([2],4).should == ['**','*',"+","power!","rpower"].sort
+5.match_method([4],1).should == ['%','-','/','<=>','div','modulo','remainder','^','gcd'].sort
 
 There is a gem now, thanks to Pbalduino. 
 
