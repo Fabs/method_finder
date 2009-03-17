@@ -3,9 +3,11 @@ class Object
   def match_method(params,expected, &block)
     with_warnings_suppressed do
       methods.select do |method|
-        p = params
-        p += ["&block"]  if block_given? && method[method.size-1,1] != '='
-        test_method(method, p, expected, &block)
+        if method != "match_method"
+          p = params
+          p += ["&block"]  if block_given? && method[method.size-1,1] != '='
+          test_method(method, p, expected, &block)
+        end
       end.sort
     end
   end

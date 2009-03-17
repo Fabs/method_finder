@@ -1,9 +1,7 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
 require 'rubygems'
 
-# Time to add your specs!
-# http://rspec.info/
-describe Kernel do
+describe Object do
     
   it "should work well integers" do
     1.match_method([1],2).should == ['+','<<'].sort
