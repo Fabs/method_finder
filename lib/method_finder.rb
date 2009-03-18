@@ -3,7 +3,7 @@ class Object
   def match_method(params,expected, &block)
     with_warnings_suppressed do
       methods.select do |method|
-        if method != "match_method"
+        if !["match_method","cycle"].member? method
           p = params
           p += ["&block"]  if block_given? && method[method.size-1,1] != '='
           test_method(method, p, expected, &block)
