@@ -21,4 +21,16 @@ describe Object do
     end.should == ["find_all", "select", "should_not"].sort
   end
     
+  it "should be able to alter methods from match list" do
+    1.should respond_to(:alter_match_methods)
+    1.alter_match_methods :delete, :list => ["to_s"]
+    1.matchable_methods.should_not include "to_s"
+    
+    2.alter_match_methods :delete, :list => ["to_s"]
+    2.alter_match_methods :delete, :list => ["to_f"]
+    2.matchable_methods.should_not include "to_s"
+    2.matchable_methods.should_not include "to_f"
+    
+  end  
+
 end

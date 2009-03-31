@@ -1,15 +1,23 @@
-class Object
+module MethodFinder
+  def alter_match_methods(action, options = {})
+    @matchable_methods ||= methods.sort
+    if(action == :delete)
+      options[:list].each {|i| @matchable_methods.delete(i)} if(options[:list])
+    end
+  end
 
   def match_method(params,expected, &block)
     with_warnings_suppressed do
-      methods.select do |method|
-        if !["match_method","cycle"].member? method
-          p = params
-          p += ["&block"]  if block_given? && method[method.size-1,1] != '='
-          test_method(method, p, expected, &block)
-        end
+      matchable_methods.select do |method|
+        p = params
+        p += ["&block"]  if block_given? && method[method.size-1,1] != '='
+        test_method(method, p, expected, &block)
       end.sort
     end
+  end
+  
+  def matchable_methods
+    @matchable_methods ||= methods.sort
   end
   
   private
@@ -41,4 +49,21 @@ class Object
       end
     end
     
+end
+
+class Object
+  include MethodFinder
+end
+
+module Enumerable 
+  include MethodFinder
+  
+  def matchable_methods    
+    super.select {|m| m != "cycle"}
+  end
+    
+  def append_features
+    alter_match_methods :delete, :list => ["cycle"]    
+    super()
+  end 
 end
