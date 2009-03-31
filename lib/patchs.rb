@@ -1,17 +1,12 @@
 require "method_finder"
+
 class Object
   include MethodFinder
 end
 
-module Enumerable 
-  include MethodFinder
-  
-  def matchable_methods    
-    super.select {|m| m != "cycle"}
-  end
-    
+module Enumerable
   def append_features
-    alter_match_methods :delete, :list => ["cycle"]    
+    alter_match_methods :delete, ["cycle"]
     super()
   end 
 end
