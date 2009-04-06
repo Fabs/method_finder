@@ -16,4 +16,4 @@ Note that default mac ruby and the spec_helper sometimes require 'rubygem', and 
 There is a gem now, thanks to Pbalduino. 
 
 Know Issues
-In Ruby 1.9+ the method Array#cycle does not stop, so we igore it.
+In Ruby 1.9+ the method cycle from Enumerate does not stop, so we igore it.
