@@ -16,9 +16,3 @@ Great developer tool to help people using ruby to develop their code.}
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Method Finder is a useful gem to help you find out methods that will perform the operations you want.}
 end
-
-Rake::GemPackageTask.new(spec) do |pkg|
-  pkg.need_tar = true
-  pkg.need_zip = true
-end
-
