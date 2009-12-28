@@ -1,10 +1,11 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
+require 'rubygems'
 
 describe Object do
   it "should work well integers" do
     1.match_method([1],2).should == ['+','<<'].sort
-    2.match_method([2],4).should == ['**','*',"+"].sort #Don't understand why 'power!' and 'rpower' are not on fixnum methods unless we require 'rubygems'
-    5.match_method([4],1).should == ['%','-','/','<=>','div','modulo','remainder','^'].sort #same happens for 'gcd'
+    2.match_method([2],4).should == ['**','*',"+",'power!','rpower'].sort
+    5.match_method([4],1).should == ['%','-','/','<=>','div','modulo','remainder','^','gcd'].sort
     47.match_method([1],200).should == []
   end
   
