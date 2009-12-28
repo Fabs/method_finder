@@ -1,19 +1,18 @@
-class Object
+RSPEC_ADDED_METHODS = ["should_receive", "unstub", "unstub!", "debugger"]
+FORBIDDEN_METHODS = ["match_method", "cycle", "display"] | RSPEC_ADDED_METHODS
 
-  def match_method(params,expected, &block)
+class Object
+  def match_method(params, expected, &block)
     with_warnings_suppressed do
       methods.select do |method|
-        if !["match_method","cycle"].member? method
-          p = params
-          p += ["&block"]  if block_given? && method[method.size-1,1] != '='
-          test_method(method, p, expected, &block)
+        unless FORBIDDEN_METHODS.member? method
+          test_method(method, params, expected, &block)
         end
       end.sort
     end
   end
   
   private
-
     # Suppresses warnings within a given block.
     def with_warnings_suppressed
       saved_verbosity = $-v
@@ -23,6 +22,16 @@ class Object
       $-v = saved_verbosity
     end
   
+    def test_method(method, params, expected, &block)
+      begin
+        clone = try_clone
+        result = clone.send(method, *params, &block)
+        result == expected
+      rescue
+        false
+      end
+    end
+  
     def try_clone
       begin
         clone
@@ -30,15 +39,4 @@ class Object
         self
       end
     end
-  
-    def test_method(method, params, expected, &block)
-      begin
-        clone = try_clone
-        exp = "clone.#{method}(#{params.join(',')})"
-        result = eval(exp)
-        result == expected    
-      rescue
-      end
-    end
-    
 end
