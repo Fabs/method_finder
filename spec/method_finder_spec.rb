@@ -23,6 +23,12 @@ describe Object do
   it "should work with strings as parameters" do
     1.match_method(["respond_to?"], true).should == ["respond_to?"]
   end
+
+  it "should work with string as target object" do
+    "rails".match_method(["respond_to?"], true).should == ["respond_to?"]
+  end
+
+
     
   context String do    
     it "should work with two arguments on String" do
