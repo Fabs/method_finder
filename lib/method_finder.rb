@@ -1,4 +1,4 @@
-RSPEC_ADDED_METHODS = ["should_receive", "unstub", "unstub!", "debugger"]
+RSPEC_ADDED_METHODS = ["should_receive", "should_not_receive", "stub!", "stub", "unstub", "unstub!", "stub_chain", "debugger"]
 FORBIDDEN_METHODS = ["match_method", "cycle", "display"] | RSPEC_ADDED_METHODS
 
 class Object

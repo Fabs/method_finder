@@ -23,16 +23,18 @@ describe Object do
   it "should work with strings as parameters" do
     1.match_method(["respond_to?"], true).should == ["respond_to?"]
   end
-
-  it "should work with string as target object" do
-    "rails".match_method(["respond_to?"], true).should == ["respond_to?"]
-  end
-
-
     
   context String do    
+    it "should work with string as target object" do
+      "rails".match_method(["respond_to?"], true).should == ["<", "<=", "respond_to?"]
+    end
+    
     it "should work with two arguments on String" do
       "rails".match_method(["r", "f"], "fails").should == ["gsub", "gsub!", "sub", "sub!", "tr", "tr!", "tr_s", "tr_s!"]
+    end
+    
+    it "should work with weirdly strings arguments on String" do
+      "rails".match_method(["respond_to?--- rails\n"], true).should == ["<", "<="]
     end
   end
 end
